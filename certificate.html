@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate Verification - Academic Portfolio Record</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Bundled local libraries for zero external dependencies -->
+  <script src="qrcode.min.js"></script>
+  <script src="html2pdf.bundle.min.js"></script>
+</head>
+<body class="standalone-body">
+
+  <!-- Disclaimer Banner -->
+  <div class="disclaimer-banner no-print">
+    <span>⚠️ <strong>UNOFFICIAL PERSONAL DEMO:</strong> This public verification record demonstrates personal academic and project achievements. It is strictly an unofficial demo and is not affiliated with NPTEL, SWAYAM, IITs, or Government authorities.</span>
+  </div>
+
+  <!-- Verification Header Bar -->
+  <header class="verification-banner no-print">
+    <div class="verification-status-row">
+      
+      <div class="status-indicator">
+        <div class="status-badge-icon">✓</div>
+        <div>
+          <h2 class="status-title">Verified Personal Certificate Record</h2>
+          <p class="status-subtitle">
+            Certificate ID: <strong id="metaCertId">CERT-2026-NPTEL-98234</strong> • Status: <span style="color:#137333; font-weight:700;">Valid Demo Record</span>
+          </p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <a href="index.html" class="btn btn-secondary btn-sm" title="Open the certificate editor">
+          <span>✏️ Open in Studio</span>
+        </a>
+        <button id="standaloneDownloadBtn" class="btn btn-success btn-sm" title="Download Landscape A4 PDF">
+          <span>📥 Download PDF</span>
+        </button>
+        <button id="standalonePrintBtn" class="btn btn-primary btn-sm" title="Print in Landscape A4 layout">
+          <span>🖨️ Print Landscape A4</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Quick Meta Information Pills -->
+    <div style="max-width: 1100px; margin: 12px auto 0 auto; display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: #475569; padding-top: 10px; border-top: 1px dashed #e2e8f0;">
+      <div>Candidate: <strong id="metaFullName" style="color:#1e293b;">ANIKET PANDEY</strong></div>
+      <div>Roll No: <strong id="metaRollNo" style="color:#1e293b;">AP2026CS113S353300028</strong></div>
+      <div>Course: <strong id="metaCourse" style="color:#1e293b;">INTRODUCTION TO PROGRAMMING IN C</strong></div>
+      <div>Score: <strong id="metaScore" style="color:#1e293b;">88%</strong></div>
+    </div>
+  </header>
+
+  <!-- Certificate Viewport -->
+  <main class="standalone-cert-viewport">
+    <div id="certScaleWrapper" class="cert-scale-wrapper">
+      
+      <!-- ==========================================
+           THE EXACT LANDSCAPE A4 CERTIFICATE CARD
+           ========================================== -->
+      <article id="certificateCard" class="certificate-card">
+        
+        <!-- Diagonal Demo Ribbon -->
+        <div class="cert-demo-badge">UNOFFICIAL DEMO</div>
+
+        <!-- Main Certificate Body -->
+        <div class="cert-body">
+
+          <!-- 1. Header with Logos & Title -->
+          <header class="cert-header">
+            <!-- Left Custom Academic Crest (SVG) -->
+            <div class="cert-logo-left">
+              <svg viewBox="0 0 100 100" width="76" height="76" aria-label="Academic Laurel Crest">
+                <circle cx="50" cy="50" r="46" fill="none" stroke="#8c1c1c" stroke-width="2.5" stroke-dasharray="4 2"/>
+                <circle cx="50" cy="50" r="41" fill="none" stroke="#eedbc5" stroke-width="3"/>
+                <circle cx="50" cy="50" r="36" fill="#ffffff" stroke="#8c1c1c" stroke-width="1.5"/>
+                <g fill="#eedbc5" stroke="#8c1c1c" stroke-width="1.2">
+                  <polygon points="50,18 53,38 72,28 58,44 78,50 58,56 72,72 53,62 50,82 47,62 28,72 42,56 22,50 42,44 28,28 47,38" />
+                </g>
+                <circle cx="50" cy="50" r="9" fill="#8c1c1c"/>
+                <circle cx="50" cy="50" r="4" fill="#ffffff"/>
+              </svg>
+            </div>
+
+            <!-- Center Title & Subtitle -->
+            <div class="cert-header-text">
+              <h1 class="cert-main-title">PERSONAL ONLINE CERTIFICATION</h1>
+              <p class="cert-main-subtitle">(Independent Academic Achievement Portfolio • Unofficial Demo)</p>
+            </div>
+
+            <!-- Right Custom Learning Badge (SVG) -->
+            <div class="cert-logo-right">
+              <svg viewBox="0 0 100 100" width="72" height="72" aria-label="Skill Achievement Badge">
+                <rect x="15" y="15" width="70" height="70" rx="10" fill="#ffffff" stroke="#1a4a75" stroke-width="2.5"/>
+                <rect x="20" y="20" width="60" height="60" rx="6" fill="#f0f6fc"/>
+                <path d="M28 62 Q 50 55 50 36 Q 50 55 72 62 L 72 42 Q 50 35 50 24 Q 50 35 28 42 Z" fill="#1a4a75"/>
+                <path d="M50 20 L 53 28 L 47 28 Z" fill="#8c1c1c"/>
+                <circle cx="50" cy="18" r="3" fill="#e67e22"/>
+                <text x="50" y="73" font-family="'Montserrat', sans-serif" font-size="9" font-weight="800" fill="#1a4a75" text-anchor="middle">SKILL DEMO</text>
+              </svg>
+            </div>
+          </header>
+
+          <!-- 2. Candidate & Course Area -->
+          <section class="cert-content-area">
+            <div class="cert-text-column">
+              
+              <div class="phrase-awarded">This certificate is awarded to</div>
+              
+              <div id="certFullName" class="candidate-name">ANIKET PANDEY</div>
+              
+              <div class="phrase-completing">for successfully completing the course</div>
+              
+              <div id="certCourseTitle" class="course-title">INTRODUCTION TO PROGRAMMING IN C</div>
+              
+              <div class="phrase-score">
+                with a consolidated score of <span id="certScore" class="score-bold">88%</span>
+              </div>
+
+              <!-- Score Breakdown Table -->
+              <div class="cert-score-table-wrapper">
+                <table class="cert-score-table">
+                  <tbody>
+                    <tr>
+                      <td class="label-cell">Online Assignments</td>
+                      <td class="value-cell" id="certAssignmentScore">24.54/25</td>
+                      <td class="label-cell">Proctored Exam</td>
+                      <td class="value-cell" id="certExamScore">63.50/75</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Certified Candidates -->
+              <div class="certified-count">
+                Total number of candidates certified in this course: <span id="certCertifiedCount" class="count-bold">1650</span>
+              </div>
+
+            </div>
+
+            <!-- Right Candidate Photo -->
+            <div class="cert-photo-container">
+              <img id="certPhoto" class="cert-photo-img" src="" alt="Candidate Portrait">
+            </div>
+          </section>
+
+          <!-- 3. Signatures & Session Area -->
+          <section class="cert-signatures-section">
+            
+            <!-- Left Signatory -->
+            <div class="signatory-block">
+              <div class="signatory-sig">
+                <svg viewBox="0 0 180 50" width="160" height="46">
+                  <path d="M 15 36 Q 30 10 45 32 Q 55 12 70 30 Q 85 8 95 34 Q 105 18 120 32 Q 135 22 155 35" fill="none" stroke="#111111" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M 35 28 L 75 22" fill="none" stroke="#111111" stroke-width="1.8"/>
+                </svg>
+              </div>
+              <div id="certSig1Name" class="signatory-name">Prof. B. V. Ratish Kumar</div>
+              <div id="certSig1Title" class="signatory-title">Chairman, Centre for Continuing Education</div>
+              <div id="certSig1Inst" class="signatory-inst">IIT Demonstration Centre</div>
+            </div>
+
+            <!-- Center Session Details -->
+            <div class="session-block">
+              <div id="certSessionPeriod" class="session-period">JUL-SEP 2026</div>
+              <div id="certSessionDuration" class="session-duration">(8 week course)</div>
+            </div>
+
+            <!-- Right Signatory -->
+            <div class="signatory-block">
+              <div class="signatory-sig">
+                <svg viewBox="0 0 180 50" width="160" height="46">
+                  <path d="M 20 22 Q 40 40 60 18 Q 80 8 95 38 Q 115 15 130 34 Q 145 20 165 30" fill="none" stroke="#111111" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M 50 36 Q 90 28 140 32" fill="none" stroke="#111111" stroke-width="1.6"/>
+                </svg>
+              </div>
+              <div id="certSig2Name" class="signatory-name">Prof. Satyaki Roy</div>
+              <div id="certSig2Title" class="signatory-title">Program Coordinator</div>
+              <div id="certSig2Inst" class="signatory-inst">IIT Demonstration Centre</div>
+            </div>
+
+          </section>
+
+        </div>
+
+        <!-- 4. Tan / Beige Institution Band -->
+        <div class="cert-band-institution">
+          <div class="inst-left">
+            <div class="inst-seal">
+              <svg viewBox="0 0 40 40" width="32" height="32">
+                <circle cx="20" cy="20" r="18" fill="none" stroke="#2b1f14" stroke-width="1.5"/>
+                <circle cx="20" cy="20" r="14" fill="none" stroke="#2b1f14" stroke-width="1" stroke-dasharray="2 1.5"/>
+                <circle cx="20" cy="20" r="9" fill="#2b1f14"/>
+                <polygon points="20,13 22,18 27,18 23,21 25,26 20,23 15,26 17,21 13,18 18,18" fill="#eedbc5"/>
+              </svg>
+            </div>
+            <div id="certCollegeName" class="inst-name">Indian Institute of Technology & Engineering Demo</div>
+          </div>
+
+          <div class="inst-badge-right">
+            <span class="inst-badge-text">PORTFOLIO DEMO • UNOFFICIAL</span>
+          </div>
+        </div>
+
+        <!-- 5. Deep Maroon / Crimson Footer Band -->
+        <footer class="cert-band-footer">
+          <div id="certRollNo" class="footer-left-roll">Roll No: AP2026CS113S353300028</div>
+
+          <div class="footer-center-qr-group">
+            <span class="verify-label">To verify the certificate</span>
+            <div id="certQrCode" class="qr-code-box"></div>
+          </div>
+
+          <div id="certCredits" class="footer-right-credits">No. of credits recommended: 3</div>
+        </footer>
+
+      </article>
+
+    </div>
+  </main>
+
+  <footer class="footer-credit-note no-print" style="text-align: center; padding: 20px; font-size: 12px; color: #94a3b8;">
+    Personal Academic Portfolio Certificate • Unofficial Demo Document
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

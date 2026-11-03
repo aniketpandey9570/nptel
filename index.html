@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate Studio - Landscape A4 Personal Certificate Generator</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Bundled local libraries for zero external dependencies -->
+  <script src="qrcode.min.js"></script>
+  <script src="html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+  <!-- Top Disclaimer Notice -->
+  <div class="disclaimer-banner no-print">
+    <span>⚠️ <strong>UNOFFICIAL PORTFOLIO DEMO:</strong> This certificate builder is for personal portfolios, student showcases, and mockups. It is strictly unofficial and does not replicate protected official emblems, seals, or branding.</span>
+  </div>
+
+  <!-- App Navigation Bar -->
+  <header class="app-navbar no-print">
+    <div class="brand-wrapper">
+      <div class="brand-icon">🎓</div>
+      <div>
+        <h1 class="brand-title">Certificate Studio</h1>
+        <p class="brand-subtitle">Landscape A4 Personal & Portfolio Generator</p>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <select id="presetSelector" class="form-control" style="width: auto; font-size: 13px;" title="Load sample preset courses">
+        <option value="" disabled selected>Load Sample Preset...</option>
+        <option value="c_prog">Programming in C</option>
+        <option value="data_science">Python & Machine Learning</option>
+        <option value="cloud_computing">Cloud Architecture & DevOps</option>
+      </select>
+
+      <button id="openVerifyPageBtn" class="btn btn-secondary" title="Preview public verification page">
+        <span>🔗 Open Verification Page</span>
+      </button>
+
+      <button id="downloadPdfBtn" class="btn btn-success" title="Download high resolution Landscape A4 PDF">
+        <span>📥 Download PDF</span>
+      </button>
+
+      <button id="printCertBtn" class="btn btn-primary" title="Print in Landscape A4 layout">
+        <span>🖨️ Print Landscape A4</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Workspace Container -->
+  <main class="workspace-container">
+    
+    <!-- Left Sidebar: Configuration Controls -->
+    <aside class="editor-sidebar no-print">
+      <div class="sidebar-header">
+        <h2>Certificate Configuration</h2>
+        <button id="resetDefaultsBtn" class="btn btn-sm btn-secondary" title="Reset all fields to placeholders">Reset</button>
+      </div>
+
+      <div class="sidebar-content">
+        <form id="certConfigForm" onsubmit="return false;">
+
+          <!-- 1. Recipient Information -->
+          <div class="accordion-group">
+            <div class="accordion-title">
+              <span>👤 1. Recipient Details</span>
+              <span class="icon-chevron">▼</span>
+            </div>
+            <div class="accordion-body">
+              <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" class="form-control" placeholder="e.g. ANIKET PANDEY" required>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="rollNo">Roll Number / ID</label>
+                  <input type="text" id="rollNo" class="form-control" placeholder="e.g. AP2026CS113S353300028">
+                </div>
+                <div class="form-group">
+                  <label for="certId">Certificate ID</label>
+                  <input type="text" id="certId" class="form-control" placeholder="e.g. CERT-2026-NPTEL-98234">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Profile Photograph</label>
+                <div class="photo-uploader">
+                  <img id="photoThumbnail" class="photo-preview-thumbnail" alt="Thumb" src="">
+                  <div class="photo-upload-actions">
+                    <input type="file" id="photoFileInput" accept="image/*" style="display: none;">
+                    <button type="button" class="btn btn-sm btn-secondary" onclick="document.getElementById('photoFileInput').click();">
+                      📷 Upload Photo
+                    </button>
+                    <button type="button" id="resetPhotoBtn" class="btn btn-sm btn-secondary">
+                      ↺ Default Avatar
+                    </button>
+                  </div>
+                </div>
+                <span class="form-hint">Upload a passport-style portrait photo (PNG/JPG/WebP).</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Course & Organization -->
+          <div class="accordion-group">
+            <div class="accordion-title">
+              <span>📚 2. Course & Organization</span>
+              <span class="icon-chevron">▼</span>
+            </div>
+            <div class="accordion-body">
+              <div class="form-group">
+                <label for="courseTitle">Course / Achievement Title</label>
+                <input type="text" id="courseTitle" class="form-control" placeholder="e.g. INTRODUCTION TO PROGRAMMING IN C">
+              </div>
+
+              <div class="form-group">
+                <label for="collegeName">College / Institute Name</label>
+                <input type="text" id="collegeName" class="form-control" placeholder="e.g. Indian Institute of Technology & Engineering Demo">
+              </div>
+
+              <div class="form-group">
+                <label for="credits">Credits Recommended</label>
+                <input type="text" id="credits" class="form-control" placeholder="e.g. 3">
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Performance & Evaluation -->
+          <div class="accordion-group">
+            <div class="accordion-title">
+              <span>📊 3. Performance & Scores</span>
+              <span class="icon-chevron">▼</span>
+            </div>
+            <div class="accordion-body">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="score">Consolidated Score</label>
+                  <input type="text" id="score" class="form-control" placeholder="e.g. 88%">
+                </div>
+                <div class="form-group">
+                  <label for="certifiedCount">Certified Candidates</label>
+                  <input type="text" id="certifiedCount" class="form-control" placeholder="e.g. 1650">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="assignmentScore">Assignments Score</label>
+                  <input type="text" id="assignmentScore" class="form-control" placeholder="e.g. 24.54/25">
+                </div>
+                <div class="form-group">
+                  <label for="examScore">Proctored Exam Score</label>
+                  <input type="text" id="examScore" class="form-control" placeholder="e.g. 63.50/75">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Session & Dates -->
+          <div class="accordion-group">
+            <div class="accordion-title">
+              <span>📅 4. Session & Duration</span>
+              <span class="icon-chevron">▼</span>
+            </div>
+            <div class="accordion-body">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="sessionPeriod">Session Term</label>
+                  <input type="text" id="sessionPeriod" class="form-control" placeholder="e.g. JUL-SEP 2026">
+                </div>
+                <div class="form-group">
+                  <label for="sessionDuration">Course Duration</label>
+                  <input type="text" id="sessionDuration" class="form-control" placeholder="e.g. (8 week course)">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Signatories -->
+          <div class="accordion-group collapsed">
+            <div class="accordion-title">
+              <span>✍️ 5. Authorities & Signatures</span>
+              <span class="icon-chevron">▼</span>
+            </div>
+            <div class="accordion-body">
+              <div class="form-group">
+                <label>Signatory 1 (Left: Course Mentor / Lead)</label>
+                <input type="text" id="sig1Name" class="form-control" placeholder="Name" style="margin-bottom: 6px;">
+                <input type="text" id="sig1Title" class="form-control" placeholder="Title" style="margin-bottom: 6px;">
+                <input type="text" id="sig1Inst" class="form-control" placeholder="Department / Centre">
+              </div>
+
+              <div class="form-group" style="margin-top: 10px;">
+                <label>Signatory 2 (Right: Academic Coordinator)</label>
+                <input type="text" id="sig2Name" class="form-control" placeholder="Name" style="margin-bottom: 6px;">
+                <input type="text" id="sig2Title" class="form-control" placeholder="Title" style="margin-bottom: 6px;">
+                <input type="text" id="sig2Inst" class="form-control" placeholder="Department / Centre">
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. QR Code & Public Hosted URL -->
+          <div class="accordion-group">
+            <div class="accordion-title">
+              <span>📱 6. QR Code & Public Hosted Link</span>
+              <span class="icon-chevron">▼</span>
+            </div>
+            <div class="accordion-body">
+              <div class="form-group">
+                <label for="targetUrl">Deployed HTTPS URL</label>
+                <input type="url" id="targetUrl" class="form-control" placeholder="https://aniketpandey.github.io/nptel/certificate.html">
+                <span class="form-hint">Enter your hosted GitHub Pages URL. The QR code dynamically encodes this target so phone cameras open your real certificate online.</span>
+              </div>
+
+              <div style="background: #f8fafc; padding: 12px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 8px;">
+                <div style="font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase;">Current Verification Link:</div>
+                <a id="qrLinkPreview" href="#" target="_blank" style="font-size: 11px; color: var(--accent-blue); word-break: break-all; line-height: 1.4;"></a>
+                <div style="display: flex; gap: 8px; margin-top: 4px;">
+                  <button type="button" id="copyLinkBtn" class="btn btn-sm btn-secondary" style="flex: 1;">
+                    📋 Copy Link
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </aside>
+
+    <!-- Main Preview Area -->
+    <section class="preview-workspace">
+      
+      <!-- Toolbar -->
+      <div class="preview-toolbar no-print">
+        <div class="zoom-controls">
+          <span>Zoom:</span>
+          <button id="zoomOutBtn" class="zoom-btn" title="Zoom Out">−</button>
+          <span id="zoomLevelDisplay" style="min-width: 44px; text-align: center; font-weight: 600;">100%</span>
+          <button id="zoomInBtn" class="zoom-btn" title="Zoom In">+</button>
+          <button id="zoomResetBtn" class="btn btn-sm btn-secondary" title="100% Zoom">100%</button>
+          <button id="zoomFitBtn" class="btn btn-sm btn-secondary" title="Fit to Screen">Fit</button>
+        </div>
+
+        <div style="font-size: 12px; color: #64748b; font-weight: 500;">
+          Landscape A4 (297mm × 210mm) • Live Preview
+        </div>
+      </div>
+
+      <!-- Stage with Scalable Certificate -->
+      <div class="preview-stage">
+        <div id="certScaleWrapper" class="cert-scale-wrapper">
+          
+          <!-- ==========================================
+               THE EXACT LANDSCAPE A4 CERTIFICATE CARD
+               ========================================== -->
+          <article id="certificateCard" class="certificate-card">
+            
+            <!-- Diagonal Demo Ribbon -->
+            <div class="cert-demo-badge">UNOFFICIAL DEMO</div>
+
+            <!-- Main Certificate Body -->
+            <div class="cert-body">
+
+              <!-- 1. Header with Logos & Title -->
+              <header class="cert-header">
+                <!-- Left Custom Academic Crest (SVG) -->
+                <div class="cert-logo-left">
+                  <svg viewBox="0 0 100 100" width="76" height="76" aria-label="Academic Laurel Crest">
+                    <circle cx="50" cy="50" r="46" fill="none" stroke="#8c1c1c" stroke-width="2.5" stroke-dasharray="4 2"/>
+                    <circle cx="50" cy="50" r="41" fill="none" stroke="#eedbc5" stroke-width="3"/>
+                    <circle cx="50" cy="50" r="36" fill="#ffffff" stroke="#8c1c1c" stroke-width="1.5"/>
+                    <!-- Starburst petals -->
+                    <g fill="#eedbc5" stroke="#8c1c1c" stroke-width="1.2">
+                      <polygon points="50,18 53,38 72,28 58,44 78,50 58,56 72,72 53,62 50,82 47,62 28,72 42,56 22,50 42,44 28,28 47,38" />
+                    </g>
+                    <!-- Center atom / node -->
+                    <circle cx="50" cy="50" r="9" fill="#8c1c1c"/>
+                    <circle cx="50" cy="50" r="4" fill="#ffffff"/>
+                  </svg>
+                </div>
+
+                <!-- Center Title & Subtitle -->
+                <div class="cert-header-text">
+                  <h1 class="cert-main-title">PERSONAL ONLINE CERTIFICATION</h1>
+                  <p class="cert-main-subtitle">(Independent Academic Achievement Portfolio • Unofficial Demo)</p>
+                </div>
+
+                <!-- Right Custom Learning Badge (SVG) -->
+                <div class="cert-logo-right">
+                  <svg viewBox="0 0 100 100" width="72" height="72" aria-label="Skill Achievement Badge">
+                    <rect x="15" y="15" width="70" height="70" rx="10" fill="#ffffff" stroke="#1a4a75" stroke-width="2.5"/>
+                    <rect x="20" y="20" width="60" height="60" rx="6" fill="#f0f6fc"/>
+                    <!-- Open book & torch motif -->
+                    <path d="M28 62 Q 50 55 50 36 Q 50 55 72 62 L 72 42 Q 50 35 50 24 Q 50 35 28 42 Z" fill="#1a4a75"/>
+                    <path d="M50 20 L 53 28 L 47 28 Z" fill="#8c1c1c"/>
+                    <circle cx="50" cy="18" r="3" fill="#e67e22"/>
+                    <!-- Badge label -->
+                    <text x="50" y="73" font-family="'Montserrat', sans-serif" font-size="9" font-weight="800" fill="#1a4a75" text-anchor="middle">SKILL DEMO</text>
+                  </svg>
+                </div>
+              </header>
+
+              <!-- 2. Candidate & Course Area -->
+              <section class="cert-content-area">
+                <div class="cert-text-column">
+                  
+                  <div class="phrase-awarded">This certificate is awarded to</div>
+                  
+                  <div id="certFullName" class="candidate-name">ANIKET PANDEY</div>
+                  
+                  <div class="phrase-completing">for successfully completing the course</div>
+                  
+                  <div id="certCourseTitle" class="course-title">INTRODUCTION TO PROGRAMMING IN C</div>
+                  
+                  <div class="phrase-score">
+                    with a consolidated score of <span id="certScore" class="score-bold">88%</span>
+                  </div>
+
+                  <!-- Score Breakdown Table -->
+                  <div class="cert-score-table-wrapper">
+                    <table class="cert-score-table">
+                      <tbody>
+                        <tr>
+                          <td class="label-cell">Online Assignments</td>
+                          <td class="value-cell" id="certAssignmentScore">24.54/25</td>
+                          <td class="label-cell">Proctored Exam</td>
+                          <td class="value-cell" id="certExamScore">63.50/75</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- Certified Candidates -->
+                  <div class="certified-count">
+                    Total number of candidates certified in this course: <span id="certCertifiedCount" class="count-bold">1650</span>
+                  </div>
+
+                </div>
+
+                <!-- Right Candidate Photo -->
+                <div class="cert-photo-container">
+                  <img id="certPhoto" class="cert-photo-img" src="" alt="Candidate Portrait">
+                </div>
+              </section>
+
+              <!-- 3. Signatures & Session Area -->
+              <section class="cert-signatures-section">
+                
+                <!-- Left Signatory -->
+                <div class="signatory-block">
+                  <div class="signatory-sig">
+                    <!-- Smooth handwritten signature vector -->
+                    <svg viewBox="0 0 180 50" width="160" height="46">
+                      <path d="M 15 36 Q 30 10 45 32 Q 55 12 70 30 Q 85 8 95 34 Q 105 18 120 32 Q 135 22 155 35" fill="none" stroke="#111111" stroke-width="2.2" stroke-linecap="round"/>
+                      <path d="M 35 28 L 75 22" fill="none" stroke="#111111" stroke-width="1.8"/>
+                    </svg>
+                  </div>
+                  <div id="certSig1Name" class="signatory-name">Prof. B. V. Ratish Kumar</div>
+                  <div id="certSig1Title" class="signatory-title">Chairman, Centre for Continuing Education</div>
+                  <div id="certSig1Inst" class="signatory-inst">IIT Demonstration Centre</div>
+                </div>
+
+                <!-- Center Session Details -->
+                <div class="session-block">
+                  <div id="certSessionPeriod" class="session-period">JUL-SEP 2026</div>
+                  <div id="certSessionDuration" class="session-duration">(8 week course)</div>
+                </div>
+
+                <!-- Right Signatory -->
+                <div class="signatory-block">
+                  <div class="signatory-sig">
+                    <!-- Smooth handwritten signature vector -->
+                    <svg viewBox="0 0 180 50" width="160" height="46">
+                      <path d="M 20 22 Q 40 40 60 18 Q 80 8 95 38 Q 115 15 130 34 Q 145 20 165 30" fill="none" stroke="#111111" stroke-width="2.2" stroke-linecap="round"/>
+                      <path d="M 50 36 Q 90 28 140 32" fill="none" stroke="#111111" stroke-width="1.6"/>
+                    </svg>
+                  </div>
+                  <div id="certSig2Name" class="signatory-name">Prof. Satyaki Roy</div>
+                  <div id="certSig2Title" class="signatory-title">Program Coordinator</div>
+                  <div id="certSig2Inst" class="signatory-inst">IIT Demonstration Centre</div>
+                </div>
+
+              </section>
+
+            </div>
+
+            <!-- 4. Tan / Beige Institution Band -->
+            <div class="cert-band-institution">
+              <div class="inst-left">
+                <div class="inst-seal">
+                  <!-- Custom Seal SVG -->
+                  <svg viewBox="0 0 40 40" width="32" height="32">
+                    <circle cx="20" cy="20" r="18" fill="none" stroke="#2b1f14" stroke-width="1.5"/>
+                    <circle cx="20" cy="20" r="14" fill="none" stroke="#2b1f14" stroke-width="1" stroke-dasharray="2 1.5"/>
+                    <circle cx="20" cy="20" r="9" fill="#2b1f14"/>
+                    <polygon points="20,13 22,18 27,18 23,21 25,26 20,23 15,26 17,21 13,18 18,18" fill="#eedbc5"/>
+                  </svg>
+                </div>
+                <div id="certCollegeName" class="inst-name">Indian Institute of Technology & Engineering Demo</div>
+              </div>
+
+              <div class="inst-badge-right">
+                <span class="inst-badge-text">PORTFOLIO DEMO • UNOFFICIAL</span>
+              </div>
+            </div>
+
+            <!-- 5. Deep Maroon / Crimson Footer Band -->
+            <footer class="cert-band-footer">
+              <div id="certRollNo" class="footer-left-roll">Roll No: AP2026CS113S353300028</div>
+
+              <div class="footer-center-qr-group">
+                <span class="verify-label">To verify the certificate</span>
+                <!-- High-contrast real QR Code -->
+                <div id="certQrCode" class="qr-code-box" title="Scan to verify online"></div>
+              </div>
+
+              <div id="certCredits" class="footer-right-credits">No. of credits recommended: 3</div>
+            </footer>
+
+          </article>
+          <!-- END CERTIFICATE CARD -->
+
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Modal for inspecting QR Code & link -->
+  <div id="qrModal" class="modal-overlay no-print">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Public Verification Link & QR Code</h3>
+        <button id="modalCloseBtn" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13px; color: #475569;">
+          This real QR code encodes the public HTTPS URL to your hosted certificate webpage. When scanned using any smartphone camera, it opens your verified certificate online.
+        </p>
+        <div style="background: #f1f5f9; padding: 10px; border-radius: 6px; font-size: 12px; word-break: break-all; font-family: monospace;">
+          <span id="modalUrlDisplay"></span>
+        </div>
+        <p style="font-size: 12px; color: #059669; font-weight: 600;">
+          ✓ Fully printable on Landscape A4 with high contrast (300 DPI ready).
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

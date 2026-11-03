@@ -1,0 +1,1012 @@
+/* ==========================================================================
+   Certificate Studio & Landscape A4 Certificate Stylesheet
+   Designed for Unofficial Personal Portfolio / Demo Certificates
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@1,500;1,600;1,700&family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary-maroon: #8c1c1c;
+  --maroon-dark: #6e1212;
+  --maroon-light: #ab2828;
+  --band-tan: #eedbc5;
+  --band-tan-light: #f7ede0;
+  --text-dark: #1f1f1f;
+  --text-muted: #555555;
+  --border-dark: #222222;
+  --bg-app: #f1f4f9;
+  --bg-surface: #ffffff;
+  --accent-blue: #1a73e8;
+  --accent-green: #0f9d58;
+  --sidebar-width: 440px;
+  --cert-width: 1050px;
+  --cert-height: 742.5px; /* 1050 / 1.4142 Landscape A4 ratio */
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-dark);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --------------------------------------------------------------------------
+   App Header & Disclaimer Bar
+   -------------------------------------------------------------------------- */
+.disclaimer-banner {
+  background: #fff3cd;
+  color: #856404;
+  border-bottom: 1px solid #ffeeba;
+  padding: 8px 16px;
+  font-size: 13px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
+}
+.disclaimer-banner strong {
+  color: #533f03;
+}
+
+.app-navbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--primary-maroon), #c0392b);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 800;
+  font-size: 18px;
+}
+.brand-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a202c;
+  line-height: 1.2;
+}
+.brand-subtitle {
+  font-size: 12px;
+  color: #718096;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   Main Workspace Layout
+   -------------------------------------------------------------------------- */
+.workspace-container {
+  display: flex;
+  height: calc(100vh - 105px);
+  overflow: hidden;
+}
+
+/* Sidebar Editor */
+.editor-sidebar {
+  width: var(--sidebar-width);
+  min-width: 380px;
+  max-width: 500px;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #edf2f7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fafbfc;
+}
+.sidebar-header h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2d3748;
+}
+
+.sidebar-content {
+  padding: 16px 20px 80px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.accordion-group {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.accordion-title {
+  padding: 12px 16px;
+  background: #f8fafc;
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  border-bottom: 1px solid #e2e8f0;
+}
+.accordion-title:hover {
+  background: #f1f5f9;
+}
+.accordion-title .icon-chevron {
+  transition: transform 0.2s ease;
+  font-size: 12px;
+  color: #64748b;
+}
+.accordion-group.collapsed .accordion-body {
+  display: none;
+}
+.accordion-group.collapsed .icon-chevron {
+  transform: rotate(-90deg);
+}
+
+.accordion-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.form-control {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  background: #ffffff;
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(26,115,232,0.15);
+}
+.form-hint {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* Photo upload area */
+.photo-uploader {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px dashed #cbd5e1;
+}
+.photo-preview-thumbnail {
+  width: 50px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+  background: #e2e8f0;
+}
+.photo-upload-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+  font-family: inherit;
+}
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+.btn-primary {
+  background: var(--primary-maroon);
+  color: #ffffff;
+}
+.btn-primary:hover {
+  background: var(--maroon-dark);
+}
+.btn-secondary {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #334155;
+}
+.btn-secondary:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+.btn-outline-primary {
+  background: transparent;
+  border-color: var(--primary-maroon);
+  color: var(--primary-maroon);
+}
+.btn-outline-primary:hover {
+  background: #fdf2f2;
+}
+.btn-success {
+  background: var(--accent-green);
+  color: white;
+}
+.btn-success:hover {
+  background: #0b8043;
+}
+
+/* --------------------------------------------------------------------------
+   Preview Workspace Stage
+   -------------------------------------------------------------------------- */
+.preview-workspace {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #e9edf4;
+  overflow: hidden;
+  position: relative;
+}
+
+.preview-toolbar {
+  padding: 10px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #475569;
+}
+.zoom-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  cursor: pointer;
+  font-weight: bold;
+}
+.zoom-btn:hover {
+  background: #f1f5f9;
+}
+
+.preview-stage {
+  flex: 1;
+  overflow: auto;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.cert-scale-wrapper {
+  transform-origin: top center;
+  transition: transform 0.2s ease;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   THE CERTIFICATE CARD - EXACT LANDSCAPE A4 REPLICATION
+   ========================================================================== */
+.certificate-card {
+  width: var(--cert-width);
+  height: var(--cert-height);
+  background-color: #ffffff;
+  color: var(--text-dark);
+  position: relative;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  box-sizing: border-box;
+  user-select: text;
+}
+
+/* Subtle corner demo ribbon */
+.cert-demo-badge {
+  position: absolute;
+  top: 10px;
+  right: -32px;
+  background: rgba(140, 28, 28, 0.85);
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 3px 36px;
+  transform: rotate(45deg);
+  text-transform: uppercase;
+  z-index: 20;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Main Certificate Body Padding */
+.cert-body {
+  padding: 24px 44px 10px 44px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  z-index: 5;
+}
+
+/* 1. Header Section */
+.cert-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 16px;
+}
+
+.cert-logo-left,
+.cert-logo-right {
+  width: 78px;
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cert-header-text {
+  text-align: center;
+  flex: 1;
+}
+
+.cert-main-title {
+  font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--primary-maroon);
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.cert-main-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+/* 2. Candidate & Course Core Section */
+.cert-content-area {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.cert-text-column {
+  text-align: center;
+  width: 100%;
+  padding: 0 90px; /* leaves room for right photo */
+}
+
+.phrase-awarded {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 19px;
+  font-weight: 600;
+  color: #222222;
+  margin-bottom: 6px;
+}
+
+.candidate-name {
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  color: #111111;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.phrase-completing {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 600;
+  color: #222222;
+  margin-bottom: 6px;
+}
+
+.course-title {
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: #111111;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+
+.phrase-score {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 600;
+  color: #222222;
+  margin-bottom: 10px;
+}
+.phrase-score .score-bold {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  color: #111111;
+  margin-left: 4px;
+}
+
+/* Score Breakdown Table */
+.cert-score-table-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.cert-score-table {
+  border-collapse: collapse;
+  border: 1.8px solid var(--border-dark);
+  font-family: 'Inter', sans-serif;
+  background: #ffffff;
+}
+
+.cert-score-table td {
+  border: 1.8px solid var(--border-dark);
+  padding: 5px 16px;
+  font-size: 14px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.cert-score-table .label-cell {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 17px;
+  color: #111111;
+  background: #fbfbfb;
+}
+
+.cert-score-table .value-cell {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #000000;
+}
+
+/* Certified Candidates Count */
+.certified-count {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 15px;
+  font-weight: 600;
+  color: #222222;
+}
+.certified-count .count-bold {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  color: #111111;
+}
+
+/* Candidate Photo on Right Side */
+.cert-photo-container {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  width: 102px;
+  height: 128px;
+  border: 1px solid #d1d5db;
+  border-radius: 2px;
+  overflow: hidden;
+  background: #f3f4f6;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.cert-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 3. Signatures & Session Area */
+.cert-signatures-section {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 0 10px;
+}
+
+.signatory-block {
+  width: 250px;
+  text-align: center;
+}
+
+.signatory-sig {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+}
+.signatory-sig svg {
+  max-height: 46px;
+  max-width: 180px;
+}
+
+.signatory-name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #111111;
+  line-height: 1.25;
+}
+
+.signatory-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  color: #444444;
+  line-height: 1.25;
+}
+
+.signatory-inst {
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  color: #444444;
+  line-height: 1.25;
+}
+
+.session-block {
+  text-align: center;
+  padding-bottom: 6px;
+}
+.session-period {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  color: #111111;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.session-duration {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: #333333;
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+/* 4. Bottom Band 1: Institution Tan Strip */
+.cert-band-institution {
+  background: var(--band-tan);
+  height: 46px;
+  padding: 0 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+
+.inst-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.inst-seal {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inst-seal svg {
+  width: 32px;
+  height: 32px;
+}
+
+.inst-name {
+  font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #2b1f14;
+  letter-spacing: 0.5px;
+}
+
+.inst-badge-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.inst-badge-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  color: #1a4a75;
+  text-transform: uppercase;
+}
+
+/* 5. Bottom Band 2: Deep Maroon Footer Strip */
+.cert-band-footer {
+  background: var(--primary-maroon);
+  height: 48px;
+  padding: 0 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #ffffff;
+  position: relative;
+}
+
+.footer-left-roll {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.footer-center-qr-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.verify-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.2px;
+}
+
+/* The QR Code container: perfectly positioned in the footer strip */
+.qr-code-box {
+  background: #ffffff;
+  padding: 3px;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  position: relative;
+  top: -6px; /* overlaps slightly upward just like reference */
+  cursor: pointer;
+  border: 1px solid #ffffff;
+}
+
+.qr-code-box img,
+.qr-code-box canvas {
+  width: 52px !important;
+  height: 52px !important;
+  display: block;
+}
+
+.footer-right-credits {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+  text-align: right;
+}
+
+/* --------------------------------------------------------------------------
+   Modal / Popups
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+.modal-overlay.active {
+  display: flex;
+}
+.modal-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 550px;
+  border-radius: 10px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  overflow: hidden;
+  animation: modalIn 0.2s ease-out;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+}
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #64748b;
+}
+.modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   Standalone Certificate Verification Page (certificate.html)
+   -------------------------------------------------------------------------- */
+.standalone-body {
+  background: #eaeff5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.verification-banner {
+  background: #ffffff;
+  border-bottom: 1px solid #d2dbe5;
+  padding: 14px 24px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.verification-status-row {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.status-badge-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e6f4ea;
+  color: #137333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.status-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #137333;
+}
+.status-subtitle {
+  font-size: 12px;
+  color: #5f6368;
+}
+
+.standalone-cert-viewport {
+  flex: 1;
+  padding: 30px 16px 60px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-x: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile Viewport Adaptations
+   -------------------------------------------------------------------------- */
+@media screen and (max-width: 1024px) {
+  .workspace-container {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+  .editor-sidebar {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .preview-workspace {
+    height: auto;
+    min-height: 700px;
+  }
+  .preview-stage {
+    padding: 16px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .disclaimer-banner {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+  .app-navbar {
+    padding: 10px 14px;
+  }
+  .brand-title {
+    font-size: 15px;
+  }
+  .nav-actions {
+    gap: 6px;
+  }
+  .btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
+/* ==========================================================================
+   PRINT SPECIFICATION - EXACT LANDSCAPE A4 PRINT ENGINE
+   ========================================================================== */
+@page {
+  size: 297mm 210mm landscape;
+  margin: 0;
+}
+
+@media print {
+  html, body {
+    width: 297mm !important;
+    height: 210mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    overflow: hidden !important;
+  }
+
+  .no-print,
+  .disclaimer-banner,
+  .app-navbar,
+  .editor-sidebar,
+  .preview-toolbar,
+  .verification-banner,
+  .modal-overlay,
+  .footer-credit-note {
+    display: none !important;
+  }
+
+  .workspace-container,
+  .preview-workspace,
+  .preview-stage,
+  .standalone-cert-viewport {
+    display: block !important;
+    width: 297mm !important;
+    height: 210mm !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    background: #ffffff !important;
+    overflow: hidden !important;
+  }
+
+  .cert-scale-wrapper {
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 297mm !important;
+    height: 210mm !important;
+  }
+
+  .certificate-card {
+    width: 297mm !important;
+    height: 210mm !important;
+    max-width: 297mm !important;
+    max-height: 210mm !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    page-break-inside: avoid !important;
+    page-break-after: avoid !important;
+  }
+}
+
