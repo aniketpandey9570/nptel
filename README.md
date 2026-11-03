@@ -112,7 +112,7 @@ git push -u origin main
 
 Your standalone certificate verification page URL is:
 ```text
-https://<your-username>.github.io/nptel/certificate.html
+https://aniketpandey9570.github.io/nptel/certificate.html
 ```
 
 ---
@@ -125,7 +125,7 @@ Once your site is live on GitHub Pages:
 2. In the left sidebar, scroll down to **Section 6: QR Code & Public Hosted Link**.
 3. In the **Deployed HTTPS URL** field, enter your public verification link:
    ```text
-   https://<your-username>.github.io/nptel/certificate.html
+   https://aniketpandey9570.github.io/nptel/certificate.html
    ```
 4. The QR code on the certificate will immediately regenerate to encode your live link.
 5. Click **Download PDF** or **Print Landscape A4** to save your certificate.

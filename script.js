@@ -23,7 +23,7 @@ const defaultState = {
   sig2Name: "Prof. Satyaki Roy",
   sig2Title: "Program Coordinator",
   sig2Inst: "IIT Demonstration Centre",
-  targetUrl: "https://aniketpandey.github.io/nptel/certificate.html",
+  targetUrl: "https://aniketpandey9570.github.io/nptel/certificate.html",
   photoData: ""
 };
 
